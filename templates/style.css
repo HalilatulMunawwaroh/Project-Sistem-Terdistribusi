@@ -1,0 +1,25 @@
+
+#chatbox{
+    height:400;
+    width:200;
+    background-color: aquamarine;
+    display:block;
+}
+#messages{
+list-style: none;
+}
+#bottom-chat{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+#myMessage{
+    padding: 0;
+    width:70%;
+}
+#top-chat{
+    border:6px solid black;
+    width:150;
+    height:350;
+    overflow:scroll;
+}
