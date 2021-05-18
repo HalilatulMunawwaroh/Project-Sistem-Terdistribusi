@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_socketio import SocketIO, join_room, leave_room, emit
 from flask_session import Session
 from time import sleep
+from response import msgFilterHandle
 
 app = Flask(__name__)
 app.debug = True
@@ -25,9 +26,9 @@ def text(message):
     emit('message', {'msg': session.get('username') + ' : ' + message['msg']})
 @socketio.on('filter',namespace='/chat')
 def filter(message):
-	sleep(1)
-	if message['msg'] =="halo":
-		response = "hi"
+	sleep(0.2)
+	response = msgFilterHandle(message['msg'])
+	if response:
 		emit('message', {'msg': "bot" + ' : ' + response})
 
 
