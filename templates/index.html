@@ -5,9 +5,64 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
+
+		body{
+			margin: 0;
+			padding: 0;
+			font-size: 15px;
+			font-family: 'Mandali', sans-serif;
+			background-color: #a37d52c4;
+		}
+
+		h1 {
+            		text-align: center;
+            		color: cornsilk;
+        	}
+
+		h4 {
+			text-align: center;
+			color: cornsilk;
+        	}
+
+		button{
+            		position: absolute;
+            		margin-top: -140px;
+            		margin-left: 60px;
+            		left: 50%;
+            		top: 50%;
+			height: 30px;
+            		border-radius: 100px;
+            		border: 1px solid #dbbb7f;
+            		background-color: #ddc69c;
+            		color: white;
+        	}
+
+        	button:hover{
+            		border-radius: 100px;
+            		border: 1px solid #dbbb7f;
+            		background-color: #ffffff;
+            		color: #dbbb7f;
+        	}
+
+		input{
+            		position: absolute;
+            		margin-top: -140px;
+            		margin-left: -120px;
+            		left: 50%;
+           		 top: 50%;
+			height: 28px;
+            		border-radius: 100px;
+            		border: 1px solid rgb(236, 225, 209);
+            		background-color: rgb(236, 225, 209);
+        	}
+	</style>
 </head>
 <body>
 	<form action="{{url_for('chat')}}" method="post">
+		<h1>TOKO LAPTOP X JEMBER</h1>
+		<h4>Silahkan masukkan username anda</h4>
 		<button type="submit">Mulai chat</button>
 		<input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus><br>
 	</form>
