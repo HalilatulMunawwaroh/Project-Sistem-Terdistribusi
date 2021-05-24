@@ -23,8 +23,65 @@
     })
     </script>
     <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
+
+        body{
+            margin: 0;
+            padding: 0;
+            font-size: 15px;
+            font-family: 'Mandali', sans-serif;
+            background-color: #a37d52c4;
+        }
+
+        h1{
+            text-align: center;
+            color: cornsilk;
+        }
+
+        button{
+            position: absolute;
+            margin-top: -40px;
+            margin-left: 210px;
+            left: 50%;
+            top: 50%;
+            border-radius: 100px;
+            border: 1px solid #dbbb7f;
+            background-color: #dbbb7f;
+            color: white;
+        }
+
+        button:hover{
+            border-radius: 100px;
+            border: 1px solid #dbbb7f;
+            background-color: #ffffff;
+            color: #dbbb7f;
+        }
+
+        textarea{
+            position: absolute;
+            margin-top: -210px;
+            margin-left: -250px;
+            left: 50%;
+            top: 50%;
+            background-color: rgb(236, 225, 209);
+        }
+
+        input{
+            position: absolute;
+            margin-top: -40px;
+            margin-left: -250px;
+            left: 50%;
+            top: 50%;
+            border-radius: 100px;
+            border: 1px solid rgb(236, 225, 209);
+            background-color: rgb(236, 225, 209);
+        }
+
+    </style>
 </head>
 <body>
+    <h1>TOKO LAPTOP X JEMBER</h1>
     <textarea id="chat" cols="70" rows="10" placeholder="ketik menu untuk bantuan" readonly></textarea><br /><br />
     <input type="text" id="text" size="60" placeholder="Enter your message here" />
     <button type="button" id="send" class="btn btn-success">SEND</button><br /><br />  
