@@ -20,18 +20,15 @@ def index():
 def chat():
 	username = request.form['username']
 	session['username']=username
-	return render_template('chat.html', session=session)
+	return render_template('chat.html', session=session,username=session['username'])
 @socketio.on('text', namespace='/chat')
 def text(message):
-    emit('message', {'msg': session.get('username') + ' : ' + message['msg']})
+    emit('message', {'msg':message['msg'],'username':session['username']})
 @socketio.on('filter',namespace='/chat')
 def filter(message):
 	sleep(0.2)
 	response = msgFilterHandle(message['msg'])
 	if response:
-		emit('message', {'msg': "bot" + ' : ' + response})
-
-
-
+		emit('message', {'msg':response,'username':'Bot'})
 if __name__ == '__main__':
     socketio.run(app)

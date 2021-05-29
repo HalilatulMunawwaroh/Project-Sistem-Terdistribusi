@@ -4,12 +4,43 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<title>Document</title>
 </head>
 <body>
 	<form action="{{url_for('chat')}}" method="post">
-		<button type="submit">Mulai chat</button>
-		<input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus><br>
+		<div class="content --box">
+			<input type="text" id="username" name="username" class="input -text" placeholder="Username" required autofocus>
+			<button type="submit" class="btn chat">Mulai chat</button>
+		</div>
 	</form>
+	
 </body>
+<style>
+form{
+	display: flex;
+	justify-content:center;
+}
+.content{
+	width:20em;
+	height:20em;
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	
+}
+.chat{
+	margin:10px;
+	background-color:aquamarine;
+	border: 2px aquamarine;
+}
+input[type=text] {
+  border: none;
+  border-left: 2px solid mediumslateblue;
+}
+input[type=text]:focus,input[type=text]:active {
+  outline: none !important;
+  box-shadow: none;
+}
+</style>
 </html>

@@ -1,8 +1,10 @@
+import modal
+data = modal.resp()
 db= {'halo':'hai hai',
-    'menu': "Menu toko: \n silahkan pilih sistem bot \n 1.tentang toko =ketik menu1 \n 2.stock laptop = ketik menu2 nama laptop\
-         \n 3.spek laptop = ketik menu3 nama laptop \n 4.newest promo =ketik promo",
+    'menu': '<button class="menu">menu1</button><button class="menu">menu2</button><button class="menu">menu3</button><button class="menu">promo</button> ',
+    # "Menu toko: \n silahkan pilih sistem bot \n 1.tentang toko =ketik menu1 \n 2.stock laptop = ketik menu2 nama laptop\
+        #  \n 3.spek laptop = ketik menu3 nama laptop \n 4.newest promo =ketik promo",
     'menu1':"selamat datang di toko",
-    'promo':'promo hari ini habis'
 }
 def msgFilterHandle(msg):
     response = ""
@@ -12,9 +14,21 @@ def msgFilterHandle(msg):
             if i ==j:
                 response+= db[j]
         else:
-            #will changed to proper mysql bridge 
             if i =="menu2":
-                response ="select stock from laptop l join stock s on l.id_laptop =s.id_laptop where name=?,"+str(msg[1:])
+                if len(msg)>1:
+                    response = str(data.response2(str(msg[1]))[0])
+                else:
+                    response = "masukan nama barang"
             elif i =="menu3":
-                response = "select * from laptop where name=?"+str(msg[1:])
+                if len(msg)>1:
+                    text = data.response3(str(msg[1]))
+                    headtext  = "Detail product"
+                    for i in text:
+                        headtext+="\n %s : %s" % (str(i),str(text[i]))
+            
+                    response =headtext
+                else:
+                    response = "masukan nama barang"
+            elif i=="promo":
+                response = str(data.promo())
     return response
