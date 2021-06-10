@@ -20,5 +20,12 @@ class resp:
             return self.cur.fetchall()
         else:
             self.cur.execute("select * from promo where namapromo = '"+nama+"'")
+    def room(self,room):
+        self.cur.execute("""insert into room (roomcode) values('%s')""" % str(room))
+        self.con.commit()
+    def getRoom(self):
+        self.cur.execute("select * from room DESC")
+        return self.cur.fetchall()
+
 if __name__=="__main__":
     resp()

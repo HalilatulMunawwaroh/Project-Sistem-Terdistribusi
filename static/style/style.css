@@ -3,13 +3,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-.box{
+.outer{
+  display:flex;
+  align-items: center;
   justify-content:center;
 }
 .container {
   height: 400px;
   width: 250px;
-  overflow-y: auto;  
+  overflow-y: auto; 
 }
 .header{
   color:green;
@@ -35,7 +37,7 @@ body {
     width: auto;
 
   }
-.chat-bubble:after {
+/* .chat-bubble:after {
     position: absolute;
     top: 50%;
     width: 0;
@@ -43,7 +45,7 @@ body {
     border: 20px solid transparent;
     border-bottom: 0;
     margin-top: -10px;
-  }
+  } */
 .--left {
     left:0;
     border-right-color: #eee;
@@ -93,4 +95,15 @@ input[type=text]:focus,input[type=text]:active{
 .menu{
   background-color: white;
   border:1px solid antiquewhite;
+}
+.menu :hover{
+  background-color: black;
+}
+.menu :focus{
+  background-color: green;
+}
+.outer-box{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }

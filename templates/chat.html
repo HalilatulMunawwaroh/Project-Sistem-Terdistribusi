@@ -10,8 +10,33 @@
     <script type="text/javascript" charset="utf-8">
     var socket;
     let username ="{{username}}";
+    let room = "{{room}}"
+    let stock = false;
+    let detail = false;
+    function promo() {
+        socket.emit('promo');
+    };
+    function info() {
+        socket.emit('filter',{msg: "menu1"});
+    };
+    function stocks() {
+        stock = true;
+        socket.emit('bot',{msg: "masukan nama barang",rm : room});
+        console.log("stocks")
+    };
+    function details() {
+        detail = true;
+        socket.emit('bot',{msg: "masukan nama barang",rm : room});
+        console.log("details")
+    };
+    function admin() {
+        socket.emit('promo');
+    };
     $(document).ready(function(){
         socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+        socket.on('connect', function() {
+            socket.emit('join',{rm:room})
+            });
         socket.on('message', function(data) {
             if (data.username== username ){
                 $('#chat').append($('<div class="header -right">'+data.username+'</div><div class="chat-bubble --right">'+data.msg+'</div>'));
@@ -22,31 +47,46 @@
                 $('#chat').scrollTop($('#chat')[0].scrollHeight);
             };
                 });
+ 
         $('#send').click(function(e) {
             text = $('#text').val();
             $('#text').val('');
-            socket.emit('text', {msg: text});
-            socket.emit('filter',{msg: text});
+            if (stock){
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('stocks',{msg: text,rm : room});
+                stock= false;
+            }
+            else if (detail) {
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('detils',{msg: text,rm : room});
+                detail= false;
+            } else{
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('filter',{msg: text,rm : room});
+            };
              });
         $('#text').keypress(function(e) {
             if(e.which == 13){
              text = $('#text').val();
                 $('#text').val('');
-                socket.emit('text', {msg: text});
-                socket.emit('filter',{msg: text});
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('filter',{msg: text,rm : room});
         }
-    });    
+    });
+
     })
     </script>
     <title>Document</title>
 </head>
 <body>
-    <div class="box">
-        <div class="container" id="chat">
-        </div>
-        <div class="bottom"></div>
-        <input type="text" id="text" size="23" placeholder="Enter your message here" />
-        <button type="button" id="send" class="btn btn-success">SEND</button> 
+    <div class="outer box">
+        <div class="box">
+            <div class="container" id="chat">
+            </div>
+            <div class="bottom"></div>
+            <input type="text" id="text" size="23" placeholder="Enter your message here" />
+            <button type="button" id="send" class="btn btn-success">SEND</button> 
+        </div>    
     </div>
     <!-- <textarea id="chat" cols="70" rows="10" placeholder="ketik menu untuk bantuan" readonly></textarea><br /><br /> -->
 
@@ -56,3 +96,4 @@
 
 <!-- username ={{username}} compare session with emit -->
 <!-- https://www.youtube.com/watch?v=fCpw5i_2IYU -->
+<!-- if menu2 true bla bla  -->
