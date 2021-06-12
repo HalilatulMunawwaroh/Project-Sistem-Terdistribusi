@@ -10,27 +10,81 @@
     <script type="text/javascript" charset="utf-8">
     var socket;
     let username ="{{username}}";
+    console.log(username)
     let room = "{{room}}"
     let stock = false;
     let detail = false;
+    let bot =true;
+    let saran = false;
+    var callback = function() {
+        text = $('#text').val();
+            $('#text').val('');
+            if (stock && bot){
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('stocks',{msg: text,rm : room});
+                stock= false;
+            }
+            else if (detail && bot) {
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('detils',{msg: text,rm : room});
+                detail= false;
+            }else if (saran && bot) {
+                socket.emit('text', {msg: text,rm : room});
+                socket.emit('saran',{msg: text,rm : room});
+                saran=false; 
+            }else{
+                socket.emit('text', {msg: text,rm : room});
+                if (bot){
+                    socket.emit('filter',{msg: text,rm : room});
+                };
+            };
+    };
     function promo() {
-        socket.emit('promo');
+        if (bot){
+            socket.emit('promo',{rm:room});
+            $('.promo').show(0);
+        }
     };
     function info() {
-        socket.emit('filter',{msg: "menu1"});
+        if(bot){
+            socket.emit('infos',{rm:room});
+            $('.info').show(0);
+        }
+    };
+    function sarans() {
+        saran = true;
+        if (bot){
+            socket.emit('bot',{msg: "masukan saran anda",rm : room});
+            $('.saran').show(0);
+        }
+        console.log("saran")
     };
     function stocks() {
         stock = true;
-        socket.emit('bot',{msg: "masukan nama barang",rm : room});
+        if (bot){
+            socket.emit('bot',{msg: "masukan nama barang",rm : room});
+            $('.stocks').show(0);
+        }
         console.log("stocks")
     };
     function details() {
         detail = true;
-        socket.emit('bot',{msg: "masukan nama barang",rm : room});
+        if (bot){
+            socket.emit('bot',{msg: "masukan nama barang",rm : room});
+            $('.detail').show(0);
+
+        }
         console.log("details")
     };
     function admin() {
-        socket.emit('promo');
+        bot = false;
+        socket.emit('admin',{rm:room});
+    };
+    function leave_room() {
+                socket.emit('left', {}, function() {
+                    socket.disconnect();
+                    window.location.href = "{{ url_for('index') }}";
+                });
     };
     $(document).ready(function(){
         socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
@@ -47,36 +101,18 @@
                 $('#chat').scrollTop($('#chat')[0].scrollHeight);
             };
                 });
- 
-        $('#send').click(function(e) {
-            text = $('#text').val();
-            $('#text').val('');
-            if (stock){
-                socket.emit('text', {msg: text,rm : room});
-                socket.emit('stocks',{msg: text,rm : room});
-                stock= false;
-            }
-            else if (detail) {
-                socket.emit('text', {msg: text,rm : room});
-                socket.emit('detils',{msg: text,rm : room});
-                detail= false;
-            } else{
-                socket.emit('text', {msg: text,rm : room});
-                socket.emit('filter',{msg: text,rm : room});
-            };
-             });
+        socket.on('pop', function(data) {
+                $('#chat').append($('<div class="center"><div class="dua">'+data.msg+'</div></div>'));
+                $('#chat').scrollTop($('#chat')[0].scrollHeight);
+            });
+        $('#send').click(callback);
         $('#text').keypress(function(e) {
-            if(e.which == 13){
-             text = $('#text').val();
-                $('#text').val('');
-                socket.emit('text', {msg: text,rm : room});
-                socket.emit('filter',{msg: text,rm : room});
-        }
+            if(e.which == 13) callback();
     });
 
     })
     </script>
-    <title>Document</title>
+    <title>Chat</title>
 </head>
 <body>
     <div class="outer box">
@@ -86,14 +122,11 @@
             <div class="bottom"></div>
             <input type="text" id="text" size="23" placeholder="Enter your message here" />
             <button type="button" id="send" class="btn btn-success">SEND</button> 
+            <div>
+                <button class="Logout" id="lgt" onclick=leave_room() >Keluar</button>
+            </div>
         </div>    
+        
     </div>
-    <!-- <textarea id="chat" cols="70" rows="10" placeholder="ketik menu untuk bantuan" readonly></textarea><br /><br /> -->
-
 </body>
 </html>
-
-
-<!-- username ={{username}} compare session with emit -->
-<!-- https://www.youtube.com/watch?v=fCpw5i_2IYU -->
-<!-- if menu2 true bla bla  -->

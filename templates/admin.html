@@ -4,16 +4,23 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<title>Document</title>
+	<title>Admin dash</title>
 </head>
 <body>
 	<form action="{{url_for('chat')}}" method="post">
+	<div>
 		<div class="content --box">
 			<input type="text" id="username" name="username" class="input -text" placeholder="Username" required autofocus>
 			<input type="text" id="room" name="room" class="form-control" placeholder="Room" required>
 			<button type="submit" class="btn chat">Mulai chat</button>
 		</div>
+		<div class="-bellow">
+			<h4>Open room list</h4>
+			{%for room in room_json%}
+			<div class="list"><p>room : </p><p>{{room}}</p></div>
+			{% endfor %}
+		</div>
+	</div>
 	</form>
 	
 </body>
@@ -42,6 +49,10 @@ input[type=text] {
 input[type=text]:focus,input[type=text]:active {
   outline: none !important;
   box-shadow: none;
+}
+.list{
+	width: 300px;
+	display:flex;
 }
 </style>
 </html>
