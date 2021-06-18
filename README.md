@@ -2,8 +2,10 @@
 
 Kelompok 2 :
 
+Ketua :
 Sisca Cahya Puspita (192410103009)
 
+Anggota :
 Muhammad Izzat Rahman (182410103086)
 
 Angga Bagus Prasetyo (192410103010)
